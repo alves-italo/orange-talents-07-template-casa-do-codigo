@@ -1,5 +1,6 @@
 package com.zupacademy.italo.casadocodigo.cadastroautor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,13 +14,16 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/autores")
 public class AutorController {
-    @PersistenceContext
-    private EntityManager em;
+    @Autowired
+    private AutorRepository repo;
 
     @PostMapping
     public ResponseEntity<?> cadastrarAutor(@RequestBody @Valid AutorRequest autorRequest) {
+        if (repo.findByEmail(autorRequest.getEmail()).isPresent()) return ResponseEntity.badRequest().build();
+
         Autor autor = autorRequest.converter();
-        em.persist(autor);
+        repo.save(autor);
+
         return ResponseEntity.ok(autor);
     }
 }
