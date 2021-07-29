@@ -2,13 +2,9 @@ package com.zupacademy.italo.casadocodigo.cadastroautor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
 @RestController
@@ -17,13 +13,19 @@ public class AutorController {
     @Autowired
     private AutorRepository repo;
 
+    @Autowired
+    private ProibeEmailDuplicadoAutorValidator proibeEmailDuplicadoAutor;
+
+    @InitBinder
+    public void init(WebDataBinder binder){
+        binder.addValidators(proibeEmailDuplicadoAutor);
+    }
+
     @PostMapping
     public ResponseEntity<?> cadastrarAutor(@RequestBody @Valid AutorRequest autorRequest) {
-        if (repo.findByEmail(autorRequest.getEmail()).isPresent()) return ResponseEntity.badRequest().build();
-
         Autor autor = autorRequest.converter();
         repo.save(autor);
 
-        return ResponseEntity.ok(autor);
+        return ResponseEntity.ok(autor.toString());
     }
 }
