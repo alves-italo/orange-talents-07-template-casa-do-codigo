@@ -13,14 +13,6 @@ public class AutorController {
     @Autowired
     private AutorRepository repo;
 
-    @Autowired
-    private ProibeEmailDuplicadoAutorValidator proibeEmailDuplicadoAutor;
-
-    @InitBinder
-    public void init(WebDataBinder binder){
-        binder.addValidators(proibeEmailDuplicadoAutor);
-    }
-
     @PostMapping
     public ResponseEntity<?> cadastrarAutor(@RequestBody @Valid AutorRequest autorRequest) {
         Autor autor = autorRequest.converter();

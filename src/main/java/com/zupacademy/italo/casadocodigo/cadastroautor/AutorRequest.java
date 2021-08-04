@@ -1,5 +1,7 @@
 package com.zupacademy.italo.casadocodigo.cadastroautor;
 
+import com.zupacademy.italo.casadocodigo.utilidades.ValorUnico;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -10,6 +12,7 @@ public class AutorRequest {
 
     @NotBlank
     @Email
+    @ValorUnico(target = Autor.class, field = "email")
     private final String email;
 
     @NotBlank

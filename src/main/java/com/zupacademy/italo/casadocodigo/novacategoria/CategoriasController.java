@@ -14,15 +14,6 @@ public class CategoriasController {
     @Autowired
     private CategoriaRepository repo;
 
-    @Autowired
-    private ProibeNomeDuplicadoCategoriaValidator proibeNomeDuplicadoCategoria;
-
-    @InitBinder
-    public void init(WebDataBinder binder){
-        binder.addValidators(proibeNomeDuplicadoCategoria);
-    }
-
-
     @PostMapping
     public ResponseEntity<?> cadastrarCategoria(@RequestBody @Valid CategoriaRequest categoriaRequest) {
         Categoria categoria = categoriaRequest.converter();
