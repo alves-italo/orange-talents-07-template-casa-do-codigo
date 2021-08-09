@@ -44,4 +44,12 @@ public class Autor {
                 ", registradoEm=" + registradoEm +
                 '}';
     }
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public String getDescricao() {
+        return this.descricao;
+    }
 }
