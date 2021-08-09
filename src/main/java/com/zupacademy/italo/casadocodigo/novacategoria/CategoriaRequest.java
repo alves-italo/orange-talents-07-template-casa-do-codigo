@@ -1,6 +1,5 @@
 package com.zupacademy.italo.casadocodigo.novacategoria;
 
-import com.zupacademy.italo.casadocodigo.cadastroautor.Autor;
 import com.zupacademy.italo.casadocodigo.utilidades.ValorUnico;
 
 public class CategoriaRequest {
